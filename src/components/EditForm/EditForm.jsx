@@ -18,20 +18,20 @@ const phoneRegExp =
 
 let userValidSchema = object({
   // name: string().matches(nameRegExp, 'Name is not valid!').required(),
-  number: string()
+  phonenumber: string()
     .matches(phoneRegExp, 'Phone number is not valid!')
     .required(),
 });
 
-export const EditForm = ({ name, number, onEditContact, children }) => {
+export const EditForm = ({ name, phonenumber, onEditContact, children }) => {
   const handleSubmit = (values, { resetForm }) => {
-    const { name, number } = values;
-    onEditContact(name, number);
+    const { name, phonenumber } = values;
+    onEditContact(name, phonenumber);
     resetForm();
   };
   return (
     <Formik
-      initialValues={{ name, number }}
+      initialValues={{ name, phonenumber }}
       validationSchema={userValidSchema}
       onSubmit={handleSubmit}
     >
@@ -50,10 +50,10 @@ export const EditForm = ({ name, number, onEditContact, children }) => {
             <ImPhone fill="red" />
             <EditInput
               type="tel"
-              name="number"
+              name="phonenumber"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             />
-            <ErrorMessage component={CustomError} name="number" />
+            <ErrorMessage component={CustomError} name="phonenumber" />
           </EditFormLabel>
         </EditFormWrapper>
         {children}
@@ -64,7 +64,7 @@ export const EditForm = ({ name, number, onEditContact, children }) => {
 
 EditForm.propTypes = {
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phonenumber: PropTypes.string.isRequired,
   children: PropTypes.node,
   onEditContact: PropTypes.func.isRequired,
 };

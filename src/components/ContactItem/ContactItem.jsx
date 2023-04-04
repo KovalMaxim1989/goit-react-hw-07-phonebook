@@ -11,11 +11,11 @@ import {
 import { Controls, ControlsSave } from 'components/Control/Control';
 import EditForm from 'components/EditForm';
 import { useDispatch } from 'react-redux';
-import { deleteContact, editContact } from 'redux/contactsSlice';
+import { deleteContact, editContact } from '../../redux/operations';
 
-function ContactItem({ name, number, id }) {
+function ContactItem({ name, phonenumber, id }) {
   const [editName, setEditName] = useState(name);
-  const [editNumber, setEditNumber] = useState(number);
+  const [editPhonenumber, setEditPhonenumber] = useState(phonenumber);
   const [isEdit, setIsEdit] = useState(false);
 
   const dispatch = useDispatch();
@@ -24,19 +24,19 @@ function ContactItem({ name, number, id }) {
     dispatch(deleteContact(id));
   };
 
-  const handleEditContact = (newName, newNumber) => {
+  const handleEditContact = (newName, newPhonenumber) => {
     if (!isEdit) {
       setIsEdit(true);
     } else {
       setEditName(newName);
-      setEditNumber(newNumber);
+      setEditPhonenumber(newPhonenumber);
       setIsEdit(false);
 
       dispatch(
         editContact({
           id,
           name: newName,
-          number: newNumber,
+          phonenumber: newPhonenumber,
         })
       );
     }
@@ -55,7 +55,7 @@ function ContactItem({ name, number, id }) {
 
           <ContactTel>
             <ImPhone />
-            {editNumber}
+            {editPhonenumber}
           </ContactTel>
         </ContactInfo>
       )}
@@ -64,7 +64,7 @@ function ContactItem({ name, number, id }) {
       {isEdit && (
         <EditForm
           name={editName}
-          number={editNumber}
+          phonenumber={editPhonenumber}
           onEditContact={handleEditContact}
         >
           <ControlsSave id={id} onDeleteContact={handleDeleteContact} />
@@ -84,7 +84,7 @@ function ContactItem({ name, number, id }) {
 
 ContactItem.propTypes = {
   name: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  phonenumber: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
 };
 
